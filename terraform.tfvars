@@ -1,0 +1,45 @@
+name                      = "projrg1"
+location                  = "centralus"
+vnetcidr                  = "192.168.0.0/16"
+websubnetcidr             = "192.168.1.0/24"
+appsubnetcidr             = "192.168.2.0/24"
+dbsubnetcidr              = "192.168.3.0/24"
+web_host_name             = "webserver896"
+web_username              = "web_user"
+web_os_password           = "@Webuser1"
+primary_database          = "sql-primary-database896"
+primary_database_admin    = "sqladmin"
+primary_database_password = "pa$$w0rd"
+primary_database_version  = "12.0"
+nsg_rules_db = [{
+  name                       = "ssh-rule-1"
+  priority                   = 101
+  direction                  = "Inbound"
+  access                     = "Allow"
+  protocol                   = "Tcp"
+  source_address_prefix      = "192.168.2.0/24"
+  source_port_range          = "*"
+  destination_address_prefix = "*"
+  destination_port_range     = "3306"
+  },
+  {
+    name                       = "ssh-rule-2"
+    priority                   = 102
+    direction                  = "Outbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_address_prefix      = "192.168.2.0/24"
+    source_port_range          = "*"
+    destination_address_prefix = "*"
+    destination_port_range     = "3306"
+    }, {
+    name                       = "ssh-rule-3"
+    priority                   = 100
+    direction                  = "Outbound"
+    access                     = "Deny"
+    protocol                   = "Tcp"
+    source_address_prefix      = "192.168.1.0/24"
+    source_port_range          = "*"
+    destination_address_prefix = "*"
+    destination_port_range     = "3306"
+}]
