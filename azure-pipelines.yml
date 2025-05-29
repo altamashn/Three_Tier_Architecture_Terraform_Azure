@@ -5,7 +5,7 @@ stages:
   jobs:
   - job: Build
     pool:
-      vmImage; 'Ubuntu-latest'
+      vmImage: 'Ubuntu-latest'
     steps:
     - task: TerraformTask@5
       displayName: Tf init
