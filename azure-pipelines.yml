@@ -1,0 +1,52 @@
+trigger:
+- main
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage; 'Ubuntu-latest'
+    steps:
+    - task: TerraformTask@5
+      displayName: Tf init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'Azure subscription 1(65c569c7-323b-4b81-b3f4-d3e988082931)'
+        backendAzureRmResourceGroupName: 'terraform-practice-altamash'
+        backendAzureRmStorageAccountName: 'terraformstatealtamash'
+        backendAzureRmContainerName: '3tier'
+        backendAzureRmKey: '3tier.terraform.state'
+    - task: TerraformTask@5
+      displayName: Tf validate
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+    - task: TerraformTask@5
+      displayName: Tf fmt
+      inputs:
+        provider: 'azurerm'
+        command: 'custom'
+        outputTo: 'console'
+        customCommand: 'fmt'
+        environmentServiceNameAzureRM: 'Azure subscription 1(65c569c7-323b-4b81-b3f4-d3e988082931)'
+    - task: TerraformTask@5
+      displayName: Tf plan
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        commandOptions: '-out $(Build.SourcesDirectory)/tfplanfile'
+        environmentServiceNameAzureRM: 'Azure subscription 1(65c569c7-323b-4b81-b3f4-d3e988082931)'
+    - task: ArchiveFiles@2
+      displayName: Archive Files
+      inputs:
+        rootFolderOrFile: 'Build.SourcesDirectory'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(Build.BuildId)-build'
+        publishLocation: 'Container'
