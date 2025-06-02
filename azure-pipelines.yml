@@ -7,6 +7,9 @@ stages:
     pool:
       vmImage: 'Ubuntu-latest'
     steps:
+    - task: TerraformInstaller@1
+      inputs:
+       terraformVersion: latest
     - task: TerraformTask@5
       displayName: Tf init
       inputs:
