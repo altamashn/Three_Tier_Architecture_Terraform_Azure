@@ -1,5 +1,3 @@
-
-
 data "azurerm_key_vault" "keyvault" {
   name = "terraform-cred-1"
   resource_group_name = "resourcegroup"
