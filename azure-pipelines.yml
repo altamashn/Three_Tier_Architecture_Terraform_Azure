@@ -13,7 +13,7 @@ stages:
         provider: 'azurerm'
         command: 'init'
         backendServiceArm: 'Azure subscription 1(65c569c7-323b-4b81-b3f4-d3e988082931)'
-        backendAzureRmResourceGroupName: 'terraform-practice-altamash'
+        backendAzureRmResourceGroupName: 'resourcegroup'
         backendAzureRmStorageAccountName: 'terraformstatealtamash'
         backendAzureRmContainerName: '3tier'
         backendAzureRmKey: '3tier.terraform.state'
