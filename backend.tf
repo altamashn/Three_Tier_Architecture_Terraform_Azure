@@ -1,8 +1,8 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "terraform-practice-altamash"
-    storage_account_name = "terraformstatealtamash"
-    container_name       = "3tier"
-    key                  = "3tier.terraform.state"
-  }
+    resource_group_name  = "resourcegroup"
+    storage_account_name = "terraformrg10"
+    container_name       = "3tierarchitecture"
+    key                  = "3tierarchitecture.terraform.state"
+  } 
 }
